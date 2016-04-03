@@ -1,1 +1,3 @@
 # AmoebaSim
+
+see LICENSE

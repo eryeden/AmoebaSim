@@ -1,14 +1,21 @@
-PROJECT(MCsim_phase1)
+#方針として、CMakeの機能であるfind_packageを積極的に利用する
+
+PROJECT(AmoebaSim)
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
 #For auto-complete
 SET(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+#output make commands
+set(CMAKE_VERBOSE_MAKEFILE ON)
 
-#set(CMAKE_VERBOSE_MAKEFILE ON)
+find_package(PkgConfig REQUIRED)
 
-#find_package(PkgConfig REQUIRED)
-#pkg_search_module(GLFW REQUIRED glfw3)
+#For OpenGL libraries
+#GLFW
+pkg_search_module(GLFW REQUIRED glfw3)
+#assimp
+find_package(ASSIMP REQUIRED)
 
 
 #Find packageでライブラリの設定をすべきか？
@@ -19,15 +26,13 @@ SET(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 #Libraries configurations
 #OpenGL
-SET(GL_INCLUDE ${PROJECT_SOURCE_DIR}/OpenGL/include)
-SET(GL_LIB ${PROJECT_SOURCE_DIR}/OpenGL/lib/linux)
+SET(GL_INCLUDE ${PROJECT_SOURCE_DIR}/OpenGL/include ${ASSIMP_INCLUDE_DIRS} ${GLFW_INCLUDE_DIRS})
 SET(GL_SRC_PREFIX ${PROJECT_SOURCE_DIR}/OpenGL/src)
 #ディレクトリからソースコードを追加
 file(GLOB  GL_SRCS ${GL_SRC_PREFIX}/*.cpp)
-#ライブラリ名の追加
-#SET(GL_LIBS GL ${GLFW_STATIC_LIBRARIES} assimp pthread)
-SET(GL_LIBS GL glfw3 rt m dl Xrandr Xinerama Xxf86vm Xcursor Xext Xrender Xfixes X11 pthread xcb Xau Xdmcp assimp)
 
+#ライブラリの追加
+SET(GL_LIBS GL ${GLFW_STATIC_LIBRARIES} ${ASSIMP_LIBRARIES})
 
 #Common libraries
 SET(COMMON_INCLUDE ${PROJECT_SOURCE_DIR}/Common)
