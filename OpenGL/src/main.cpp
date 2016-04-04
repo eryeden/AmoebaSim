@@ -273,7 +273,7 @@ int main() {
 	gene.SetInitialPositionEarthspace(Vector3d(0.0, 0, 0.8));
 	gene.set_initialstate_phie(Vector3d::Zero());
 	gene.SetInitialQuotanion(Vector4d(0, 0, 0, 1));
-
+	
 	//MC::Core core = gene.generate_core();
 	MC::Core core = gene.GenerateCore_q();
 
@@ -314,7 +314,7 @@ int main() {
 		, 0.015f
 		);
 
-
+	
 
 
 	//################### CONTROLLER SETTIGNS #######################################################
